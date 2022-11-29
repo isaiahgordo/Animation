@@ -8,11 +8,17 @@ namespace Animation
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        Texture2D brownT, creamT, greyT, orangeT,whiteT;
-        Rectangle brownR, creamR, greyR, orangeR,whiteR;
+        Texture2D brownT, creamT, greyT, orangeT,whiteT,introT;
+        Rectangle brownR, creamR, greyR, orangeR,whiteR,introR;
         Vector2 brownV, creamV,greyV,orangeV, mouseR;
         MouseCursor no,now;
         MouseState mS;
+        Sceen sceen;
+        enum Sceen 
+        { 
+            intro
+                
+        }
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -40,7 +46,9 @@ namespace Animation
             no=MouseCursor.No;
             whiteR = new Rectangle(-10, -10, 50, 50);
             _graphics.PreferredBackBufferHeight = 500;
+            introR = new Rectangle(0, 0, 800, 500);
             _graphics.ApplyChanges();
+
             base.Initialize();
         }
 
@@ -54,6 +62,7 @@ namespace Animation
             greyT = Content.Load<Texture2D>("tribbleGrey");
             orangeT = Content.Load<Texture2D>("tribbleOrange");
             whiteT = Content.Load<Texture2D>("white");
+            introT = Content.Load<Texture2D>("introScreen");
         }
 
         protected override void Update(GameTime gameTime)
@@ -63,6 +72,8 @@ namespace Animation
             mouseR = Mouse.GetState().Position.ToVector2();
             KeyboardState kstate=Keyboard.GetState();
             // TODO: Add your update logic here
+            if(sceen==Sceen.intro)
+                //ffffffffffffffffffffuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuck
             if (kstate.IsKeyDown(Keys.A))
             { whiteR.X = (int)mouseR.X;whiteR.Y = (int)mouseR.Y; }
             if(greyR.Right>800||greyR.Left<0)
@@ -107,11 +118,15 @@ namespace Animation
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
+            if (sceen == Sceen.intro)
+                _spriteBatch.Draw(introT, introR, Color.White);
+            else
+            { 
             _spriteBatch.Draw(brownT, brownR, Color.White);
             _spriteBatch.Draw(creamT, creamR, Color.White);
             _spriteBatch.Draw(greyT, greyR, Color.White);
             _spriteBatch.Draw(orangeT, orangeR, Color.White);
-            _spriteBatch.Draw(whiteT, whiteR, Color.White);
+            _spriteBatch.Draw(whiteT, whiteR, Color.White); }
             _spriteBatch.End();
             base.Draw(gameTime);
         }
