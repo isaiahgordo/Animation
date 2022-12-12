@@ -17,7 +17,7 @@ namespace Animation
         private Texture2D _texture;
         private Rectangle _bounds;
         private Color _colour;
-        private Vector2 _speed;
+        private Vector2 _speed;        
         public Tribble(Texture2D texture, Rectangle bounds, Vector2 speed, Color colour)
         {
             _texture = texture;
@@ -26,7 +26,10 @@ namespace Animation
             _speed = speed;
 
         }
+        public Tribble(bool b)
+        {
 
+        }
         public Texture2D texture
         {
             get
@@ -41,8 +44,7 @@ namespace Animation
         }
         public Color colour
         {
-            get { return _colour; }
-            set { _colour = value; }
+            get { return _colour; }            
         }
         public Vector2 speed
         {
@@ -60,7 +62,7 @@ namespace Animation
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, _bounds, _colour);
+            spriteBatch.Draw(texture, bounds, colour);
         }
     }
 
